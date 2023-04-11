@@ -12,7 +12,7 @@
     />
     <style>
       body {
-        background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+        background-image: linear-gradient(to right, #22dd513b 0%, #00f2fe 100%);
       }
 
       .centered {
@@ -31,7 +31,7 @@
         <div class="col-md-6 mx-auto centered">
           <h1 class="mb-4">Join Page</h1>
 
-          <form method="post">
+          <form method="post" onsubmit="return validateForm()">
             <div class="form-group">
               <label for="username">Name</label>
               <input
@@ -68,16 +68,37 @@
               />
             </div>
 
-            <button
-              onclick="alert('Registered Successfully')"
-              type="submit"
-              class="btn btn-primary btn-block"
-            >
+            <button type="submit" class="btn btn-primary btn-block">
               Create Account
             </button>
           </form>
         </div>
       </div>
     </div>
+
+    <script>
+      function validateForm() {
+        var name = document.getElementById("name").value;
+        var password = document.getElementById("password").value;
+        var email = document.getElementById("email").value;
+
+        // Check if password is at least 8 characters long and has both uppercase and lowercase letters
+        var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+        if (!regex.test(password)) {
+          alert(
+            "Password must be at least 8 characters long and contain at least one uppercase and one lowercase letter and at least one number."
+          );
+          return false;
+        }
+
+        // Check if all input fields are valid
+        if (name !== "" && email !== "" && regex.test(password)) {
+          alert("Registered Successfully");
+          return true;
+        } else {
+          return false;
+        }
+      }
+    </script>
   </body>
 </html>

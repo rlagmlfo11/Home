@@ -12,6 +12,11 @@ public class MemberService {
 	@Autowired
 	private MemberRepository re;
 
+	public Member getMemberNo(int no) {
+		Member result = re.findById(no).orElse(null);
+		return result;
+	}
+
 	public Member getMemberName(String name) {
 		Member result = re.findMemberName(name);
 		return result;

@@ -7,7 +7,7 @@ import com.sample.demo.entity.Member;
 
 public interface MemberRepository extends CrudRepository<Member, Integer> {
 
-	@Query(value = "select * from member where name = ?", nativeQuery = true)
+	@Query(value = "select * from member where member_name = ?", nativeQuery = true)
 	Member findMemberName(String name);
 
 }

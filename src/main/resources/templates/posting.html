@@ -20,6 +20,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        text-align: center;
         height: 100vh;
       }
     </style>
@@ -29,22 +30,27 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 mx-auto centered">
-          <h1 class="mb-4">What To Do</h1>
+          <h2><span>Hello </span><span th:text="${member.name}"></span></h2>
+          <h3>How`s Your Day?</h3>
 
-          <h2><span>Welcome </span><span th:text="${name}"></span></h2>
-          <br />
-          <br />
+          <label for="message">Enter your message:</label>
 
-          <p class="mt-3">Check My Info? <a href="info">Information</a>.</p>
+          <form action="" method="post">
+            <input type="text" name="title" placeholder="Write a Title" />
+            <br />
+            <br />
 
-          <p class="mt-3">Check the Board? <a href="board">Go see now</a>.</p>
+            <textarea
+              name="content"
+              id=""
+              cols="30"
+              rows="10"
+              placeholder="Write Anything"
+            ></textarea>
+            <br />
 
-          <p class="mt-3">Logout? <a href="logout">Logout</a>.</p>
-
-          <p class="mt-3">
-            Delete your account?
-            <a href="delete">Delete now</a>.
-          </p>
+            <button class="btn btn-info">post</button>
+          </form>
         </div>
       </div>
     </div>

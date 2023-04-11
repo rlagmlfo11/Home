@@ -1,26 +1,36 @@
 package com.sample.demo.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "member")
 public class Member {
 
 	@Id
+	@Column(name = "member_no")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int no;
 
-	@Column(nullable = false)
+	@Column(name = "member_name", nullable = false, length = 50, unique = true)
 	private String name;
 
-	@Column(nullable = false)
+	@Column(name = "member_password", nullable = false, length = 100)
 	private String password;
 
-	@Column(nullable = false)
+	@Column(name = "member_email", nullable = false, length = 100)
 	private String email;
+
+	@OneToMany(mappedBy = "member")
+	private List<Board> boards = new ArrayList<>();
 
 	/**
 	 * @return the no
@@ -77,5 +87,21 @@ public class Member {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	/**
+	 * @return the boards
+	 */
+	public List<Board> getBoards() {
+		return boards;
+	}
+
+	/**
+	 * @param boards the boards to set
+	 */
+	public void setBoards(List<Board> boards) {
+		this.boards = boards;
+	}
+	
+	
 
 }
