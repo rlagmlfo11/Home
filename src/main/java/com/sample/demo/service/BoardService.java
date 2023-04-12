@@ -12,8 +12,18 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 
+	public Board getBoardNo(int no) {
+		Board result = boardRepository.findById(no).orElse(null);
+		return result;
+	}
+
 	public Board postBoard(Board board) {
 		Board result = boardRepository.save(board);
+		return result;
+	}
+
+	public Iterable<Board> getBoardList() {
+		Iterable<Board> result = boardRepository.findAll();
 		return result;
 	}
 

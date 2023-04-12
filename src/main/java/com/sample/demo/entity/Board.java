@@ -2,12 +2,9 @@ package com.sample.demo.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,7 +17,7 @@ public class Board {
 	private int no;
 
 	@Column(nullable = false)
-	private String author;
+	private String member_name;
 
 	@Column(name = "board_title", nullable = false, length = 20)
 	private String title;
@@ -43,17 +40,17 @@ public class Board {
 	}
 
 	/**
-	 * @return the author
+	 * @return the member_name
 	 */
-	public String getAuthor() {
-		return author;
+	public String getMember_name() {
+		return member_name;
 	}
 
 	/**
-	 * @param author the author to set
+	 * @param member_name the member_name to set
 	 */
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 
 	/**

@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +27,43 @@ public class MemberController {
 	@Autowired
 	private BoardService boardService;
 
+	@RequestMapping("detail/{no}")    //여기서부터
+	public String detail(HttpSession session, @PathVariable int no, Model model) {
+		if (session.getAttribute("name") != null) {
+			model.addAttribute("detail", boardService.getBoardNo(no));			
+			return "detail";
+		}
+		return "redirect:login";
+	}
+
+//	@GetMapping("detail/{no}")
+//	public Board getBoardNo (@PathVariable int no, Model model) {
+//		Board result = boardService.getBoardNo(no);
+//	}
+
+//	@GetMapping("detail/{no}") // 들어가도 에러남
+//	public void getBoardNo(Board board, Model model, @PathVariable("no") int no) {
+//		Board result = boardService.getBoardNo(no);
+//		model.addAttribute("result", result);
+//	}
+
+	@GetMapping("board")
+	public Iterable<Board> getBoardList(Model model) {
+		Iterable<Board> board = boardService.getBoardList();
+		model.addAttribute("board", board);
+		return board;
+	}
+
+	/////////////////////
+
+	@RequestMapping("board")
+	public String board(HttpSession session) {
+		if (session.getAttribute("name") != null) {
+			return "board";
+		}
+		return "redirect:login";
+	}
+
 	@RequestMapping("posting")
 	public String posting(HttpSession session, Model model) {
 		if (session.getAttribute("name") != null) {
@@ -36,23 +75,15 @@ public class MemberController {
 		return "redirect:login";
 	}
 
-//	@PostMapping("posting") 
-//	public String postBoard(Board board,Member member) {
-//		Board result = boardService.postBoard(board);
-//		result.getMember();
-//		return "board";
-//	}
-
-	@PostMapping("posting") // board는 들어가는데 MEMBER_NO가 null이된다
+	@PostMapping("posting")
 	public String postBoard(Board board, HttpSession session) {
 		String id = (String) session.getAttribute("name");
 		Member member = se.getMemberName(id);
-		board.setAuthor(member.getName());
+		board.setMember_name(member.getName());
 		Board result = boardService.postBoard(board);
-		return "board";
+		System.out.println(result);
+		return "redirect:board";
 	}
-
-	///////////////////////////////////////////////////////////////////////
 
 	@RequestMapping("login")
 	public String login() {
@@ -75,14 +106,6 @@ public class MemberController {
 		if (session.getAttribute("name") != null) {
 			status.setComplete();
 			return "logout";
-		}
-		return "redirect:login";
-	}
-
-	@RequestMapping("board")
-	public String board(HttpSession session) {
-		if (session.getAttribute("name") != null) {
-			return "board";
 		}
 		return "redirect:login";
 	}
@@ -141,9 +164,7 @@ public class MemberController {
 	@PostMapping("join")
 	public String postMember(Member member) {
 		Member result = se.postMember(member);
-		result.setEmail(null);
-		result.setName(null);
-		result.setPassword(null);
+		System.out.println(result);
 		return "redirect:login";
 	}
 
