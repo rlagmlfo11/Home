@@ -36,14 +36,19 @@ public class MemberController {
 		return "redirect:login";
 	}
 
-	@PostMapping("posting")
+//	@PostMapping("posting") 
+//	public String postBoard(Board board,Member member) {
+//		Board result = boardService.postBoard(board);
+//		result.getMember();
+//		return "board";
+//	}
+
+	@PostMapping("posting") // board는 들어가는데 MEMBER_NO가 null이된다
 	public String postBoard(Board board, HttpSession session) {
 		String id = (String) session.getAttribute("name");
 		Member member = se.getMemberName(id);
+		board.setAuthor(member.getName());
 		Board result = boardService.postBoard(board);
-		result.setNo(member.getNo());
-		result.setContent(null);
-		result.setTitle(null);
 		return "board";
 	}
 

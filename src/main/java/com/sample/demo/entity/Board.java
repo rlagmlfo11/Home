@@ -2,6 +2,7 @@ package com.sample.demo.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,14 +19,13 @@ public class Board {
 	@Column(name = "board_no")
 	private int no;
 
-	@ManyToOne
-	@JoinColumn(name = "member_no")
-	private Member member;
+	@Column(nullable = false)
+	private String author;
 
 	@Column(name = "board_title", nullable = false, length = 20)
 	private String title;
 
-	@Column(name = "board_conten", nullable = false)
+	@Column(name = "board_content", nullable = false)
 	private String content;
 
 	/**
@@ -43,17 +43,17 @@ public class Board {
 	}
 
 	/**
-	 * @return the member
+	 * @return the author
 	 */
-	public Member getMember() {
-		return member;
+	public String getAuthor() {
+		return author;
 	}
 
 	/**
-	 * @param member the member to set
+	 * @param author the author to set
 	 */
-	public void setMember(Member member) {
-		this.member = member;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	/**

@@ -1,14 +1,10 @@
 package com.sample.demo.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,9 +24,6 @@ public class Member {
 
 	@Column(name = "member_email", nullable = false, length = 100)
 	private String email;
-
-	@OneToMany(mappedBy = "member")
-	private List<Board> boards = new ArrayList<>();
 
 	/**
 	 * @return the no
@@ -87,21 +80,5 @@ public class Member {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	/**
-	 * @return the boards
-	 */
-	public List<Board> getBoards() {
-		return boards;
-	}
-
-	/**
-	 * @param boards the boards to set
-	 */
-	public void setBoards(List<Board> boards) {
-		this.boards = boards;
-	}
-	
-	
 
 }

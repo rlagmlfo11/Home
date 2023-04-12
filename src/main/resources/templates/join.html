@@ -78,9 +78,9 @@
 
     <script>
       function validateForm() {
-        var name = document.getElementById("name").value;
-        var password = document.getElementById("password").value;
-        var email = document.getElementById("email").value;
+        const name = document.getElementById("name").value;
+        const password = document.getElementById("password").value;
+        const email = document.getElementById("email").value;
 
         // Check if password is at least 8 characters long and has both uppercase and lowercase letters
         var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
