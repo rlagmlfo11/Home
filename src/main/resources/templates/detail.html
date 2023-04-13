@@ -30,7 +30,12 @@
       <div class="row">
         <div class="col-md-6 mx-auto centered">
           <h1>detail</h1>
-          <h2 th:text="${detail.board_content}"></h2>
+
+          <h2>
+            <div>Writer : <span>[[ ${board.member_name} ]]</span></div>
+            <div>title : <span>[[ ${board.title} ]]</span></div>
+            <div>Content : <span>[[ ${board.content} ]]</span></div>
+          </h2>
         </div>
       </div>
     </div>

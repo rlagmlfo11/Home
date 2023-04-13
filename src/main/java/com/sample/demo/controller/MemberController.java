@@ -27,18 +27,45 @@ public class MemberController {
 	@Autowired
 	private BoardService boardService;
 
-	@RequestMapping("detail/{no}")    //여기서부터
-	public String detail(HttpSession session, @PathVariable int no, Model model) {
+	@RequestMapping("detail{no}")
+	public String detail(HttpSession session) {
 		if (session.getAttribute("name") != null) {
-			model.addAttribute("detail", boardService.getBoardNo(no));			
 			return "detail";
 		}
 		return "redirect:login";
 	}
 
+	@GetMapping("detail/{no}")
+	public String showDetail(@PathVariable("no") int no, Model model) {
+		Board board = boardService.getBoardNo(no);
+		model.addAttribute("board", board);
+		System.out.println(board.getNo());
+		System.out.println(board.getMember_name());
+		System.out.println(board.getTitle());
+		System.out.println(board.getContent());
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@");
+		return "detail";
+	}
+
 //	@GetMapping("detail/{no}")
-//	public Board getBoardNo (@PathVariable int no, Model model) {
-//		Board result = boardService.getBoardNo(no);
+//	public String getBoard(@PathVariable("no") int no, Model model) {
+//		Board board = boardService.getBoardNo(no);
+//		model.addAttribute("board", board);
+//		return "detail";
+//	}
+
+//	@GetMapping("/detail/{no}")// 들어가도 에러남
+//	public String showDetail(@PathVariable("no") String no, Model model) {
+//	    int intNo;
+//	    try {
+//	        intNo = Integer.parseInt(no);
+//	    } catch (NumberFormatException e) {
+//	        // Handle invalid input
+//	        return "redirect:/error";
+//	    }
+//	    Board board = boardService.getBoardNo(intNo);
+//	    model.addAttribute("board", board);
+//	    return "detail/{no}";
 //	}
 
 //	@GetMapping("detail/{no}") // 들어가도 에러남
@@ -47,13 +74,19 @@ public class MemberController {
 //		model.addAttribute("result", result);
 //	}
 
+//	@GetMapping("board") board에 안들어감
+//	public String getBoard(Model model, @PathVariable int no) {
+//		Iterable<Board> board = boardService.getBoardList();
+//		model.addAttribute("board", board);
+//		return "detail";
+//	}
+
 	@GetMapping("board")
 	public Iterable<Board> getBoardList(Model model) {
 		Iterable<Board> board = boardService.getBoardList();
 		model.addAttribute("board", board);
 		return board;
 	}
-
 	/////////////////////
 
 	@RequestMapping("board")
@@ -81,7 +114,6 @@ public class MemberController {
 		Member member = se.getMemberName(id);
 		board.setMember_name(member.getName());
 		Board result = boardService.postBoard(board);
-		System.out.println(result);
 		return "redirect:board";
 	}
 
@@ -143,7 +175,7 @@ public class MemberController {
 	public String memberLogin(Member member, @RequestParam String name, Model model) {
 		if (se.login(member)) {
 			model.addAttribute("name", name);
-			return "whattodo";
+			return "redirect:whattodo";
 		}
 		return "login";
 	}

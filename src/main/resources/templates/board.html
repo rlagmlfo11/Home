@@ -56,12 +56,13 @@
                 <th th:text="${board.no}"></th>
                 <td th:text="${board.member_name}"></td>
                 <td>
-                  <span
-                    style="color: red"
-                    class="cursor"
-                    onclick="location.href='detail/{no}'"
-                    th:text="${board.title}"
-                  ></span>
+                  <a th:href="@{/detail/{no}(no = ${board.no})}">
+                    <span
+                      style="color: red"
+                      class="cursor"
+                      th:text="${board.title}"
+                    ></span>
+                  </a>
                 </td>
               </tr>
             </tbody>

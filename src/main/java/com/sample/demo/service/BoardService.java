@@ -13,8 +13,7 @@ public class BoardService {
 	private BoardRepository boardRepository;
 
 	public Board getBoardNo(int no) {
-		Board result = boardRepository.findById(no).orElse(null);
-		return result;
+		return  boardRepository.findById(no).orElse(null);
 	}
 
 	public Board postBoard(Board board) {
